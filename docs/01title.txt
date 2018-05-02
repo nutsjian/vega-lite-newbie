@@ -1,0 +1,26 @@
+title （最好使用 Title Parameter Object），该级 title 下的属性设置会覆盖 config.title 下的配置
+{
+	"text": "...",		// String 图表的标题，必须
+	"anchor": "...",	// String 设置标题放置的位置，"start" "middle" "end"，在单视图或Layered中默认是 middle，在其它组合视图中默认是 start
+	"offset": ...,		// Number 设置标题相对图表的偏移量（留白间隙）
+	"orient": "...",	// String 设置标题相对图表的方向，默认 top（即标题在图表上方），可以选择：top bottom left right，分别在图表的 上方、下方、左边、右边
+	"style": "..."		// String | String[]，选择自定义的标题样式，默认是 "group-title"，这个属性还不知道怎么使用
+}
+
+title 的其它一些属性可以通过顶层的 config 来配置，如下
+{
+	"config": {
+		"title": {
+			// 在这里配置一些其它的 title 属性
+			"angle": ...,		// Number 标题的角度
+			"baseline": "...",	// Verticle text baseline for title text
+			"color": "blue",	// String 标题的颜色
+			"font": "..."		// String 字体
+			"fontSize": ...,	// Number 字体大小，默认 10
+			"fontWeight": "...",// String 字体粗度，可以是 bold normal, 100, 200, 300... normal = 400 bold = 700
+			"limit": ...,		// Number 最大允许的标题的像素长度
+			"offset": ...,		// Number 偏移量（从图表和x轴开始计算）（同 title 中的配置）
+			"orient": "..."		// top bottom left right（同 title 中的配置）
+		}
+	}
+}

@@ -1,0 +1,15 @@
+单视图和layer允许包含 width、height 属性
+
+{
+	"width": "",			// 宽度
+	"height": "",			// 高度
+	"autosize": ""			// 作用于需要滚动视图的情况下
+}
+
+
+默认的 Width 和 Height，如果顶层 width/height 没有被指定，那么单个视图中 width/height 取决于 x/y 的配置，如下：
+"encoding": {
+	// 这里的 rangeStep 就是柱子的宽度
+	"x": {"field": "Origin", "type": "nominal", "scale": {"rangeStep": 25}},
+	"y": {"aggregate": "count", "field": "*", "type": "quantitative"}
+}

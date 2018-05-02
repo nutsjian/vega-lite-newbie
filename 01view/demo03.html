@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.4.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.7.1"></script>
+</head>
+<body>
+  <div id="vis"></div>
+</body>
+<script type="text/javascript">
+  var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+    "description": "A simple bar chart with embedded data.",
+    "title": {
+      "text": "测试 Title Parameter Object",
+      "anchor": "end",
+      "orient": "top",
+      "offset": 50
+    },
+    "config": {
+      "title": {
+        "baseline": "middle",
+        "color": "blue",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "offset": 200
+      }
+    },
+    "width": "400",
+    "height": "300",
+    "data": {
+      "values": [
+        {"a": "A","b": 28}, {"a": "B","b": 55}, {"a": "C","b": 43},
+        {"a": "D","b": 91}, {"a": "E","b": 81}, {"a": "F","b": 53},
+        {"a": "G","b": 19}, {"a": "H","b": 87}, {"a": "I","b": 52}
+      ]
+    },
+    "mark": {
+      "type": "point",
+      "filled": false,
+      "color": "red"
+    },
+    "encoding": {
+      "x": {"field": "a", "type": "ordinal"},
+      "y": {"field": "b", "type": "quantitative"}
+    }
+  }
+  vegaEmbed("#vis", spec);
+</script>
+</html>
