@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.4.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.7.1"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <div style="position: absolute; right:0; top:100px; width: 500px; bottom: 0;">
+    <div style="width: 200px; height: 2px; background-color: #000;"></div>
+  </div>
+</body>
+<script type="text/javascript">
+  var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+    "description": "A simple bar chart with embedded data.",
+    "title": {
+      "text": "测试Transform.Filter",
+      "orient": "top"
+    },
+    "width": "400",
+    "height": "300",
+    "config": {
+      "title": {
+        "color": "blue",
+        "fontSize": 14,
+        "fontWeight": "bold"
+      }
+    },
+    "data": {
+      "url": "../data/lookup_groups.csv", "format": {"type": "csv"}
+    },
+    "transform": [
+      {
+        "lookup": "person",
+        "from": {
+          "data": {"url": "../data/lookup_people.csv", "format": {"type": "csv"}},
+          "key": "name",
+          "fields": ["age", "height"]
+        }
+      }
+    ],
+    "mark": {
+      "type": "bar"
+    },
+    "encoding": {
+      "x": {"field": "group", "type": "ordinal"},
+      "y": {"field": "age", "aggregate": "mean", "type": "quantitative"},
+      "tooltip": {"field": "age", "aggregate": "mean", "type": "quantitative"}
+    }
+  }
+
+  /*
+  * lookup 有点像 SQL 中的 join 操作，从一张表中关联另外一张表，并把另外一张表的字段选择性的加载进来
+  * 语法如下：
+  * {
+      "transform": [
+        {
+          "lookup": ..., "from": ..., "as": ..., "default": ...
+        }
+      ]
+    }
+  *
+  * 其中，default 是lookup 失败后返回的默认值，默认是 null，是一个字符串
+  *
+  */
+  vegaEmbed("#vis", spec);
+</script>
+</html>

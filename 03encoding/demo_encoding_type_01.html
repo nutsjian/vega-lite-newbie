@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.4.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.7.1"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <div style="position: absolute; right:0; top:100px; width: 500px; bottom: 0;">
+    <div style="width: 200px; height: 2px; background-color: #000;"></div>
+  </div>
+</body>
+<script type="text/javascript">
+  var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+    "description": "A simple bar chart with embedded data.",
+    "title": {
+      "text": "测试Encoding Axis",
+      "orient": "top"
+    },
+    "width": "400",
+    "height": "300",
+    "config": {
+      "title": {
+        "color": "blue",
+        "fontSize": 14,
+        "fontWeight": "bold"
+      },
+      "axisX": {
+        "labelColor": "red",
+        "grid": false
+      }
+    },
+    "data": {
+      "url": "../data/seattle-temps.csv", "format": {"type": "csv"}
+    },
+    "mark": {
+      "type": "line"
+    },
+    "encoding": {
+      "x": {"timeUnit": "month", "field": "date", "type": "temporal", "axis": {
+        "orient": "bottom",
+        "offset": 20,
+        "position": 0,
+        "zindex": 0,
+        "labels": true,
+        "labelAngle": 30,
+        "labelPadding": 10,
+        "ticks": true,
+        "ticksCount": 0,
+        "tickSize": 20,
+        "title": "x轴的标题（自定义）",
+        "titleMaxLength": 2,
+        "titlePadding": 50
+      }},
+      "y": {"field": "temp", "aggregate": "mean", "type": "quantitative", "axis": {
+        "orient": "right"
+      }},
+      "tooltip": {"field": "temp", "aggregate": "mean", "type": "quantitative"}
+    }
+  }
+
+  /*
+  * 
+    {
+      "data": ...,
+      "mark": ...,
+      "encoding": {
+        "x": {
+          "field": ...,
+          "type": ...,
+          "axis": {   // Axis
+            "orient": "...",  // 坐标轴的位置 top bottom left right，x 轴默认是 bottom ，下方
+            "offset": ...,    // Number，坐标轴具体图表内容的留白空间（偏移大小）
+            "position": ...,  // Number，当 x 轴是 top/bottom 时有用，是相对左边的偏移量
+            "zindex": 0,      // Number，0 或者 1，若为 1 则在 marks 前面，若为 0 ，则在 marks 后面
+            "labels": true,   // Boolean， true 或者 false，是否显示 x 轴的标签
+            "format": "...",  // String，格式化，待补充
+            "labelAngle": ...,// Number，标签的旋转角度
+            "labelOverlap":..., // Boolean|String|String
+            "labelPadding":..., // Number 标签文字和轴之间的距离
+            "ticks": true,      // Boolean 是否显示刻度
+            "ticksCount": ...,  // Number 刻度的数量
+            "tickSize": ...,    // 刻度的大小，你所看到的是刻度的长度
+            "values": ...,      // Number[] | DateTime[] 显示的设置刻度的值
+            "title": ...,       // String | Null 轴的标题
+            "titleMaxLength": ...,  // Number 轴的标题的最大长度，只有在自动生成，没有指定 title 时才有用
+            "titlePadding": ...,    // Number 轴的标题和轴之间的间隔
+          }
+        },
+        "y": ...,
+        ...
+      }
+    }
+  *
+  * 以上这些属性是在 encoding 中单独配置的，另外还有一些针对 axis 的配置需要在 axis.config 中配置，如下：
+  * 
+    {
+      ...,
+      "config": {
+        "axis": ...,
+        "axisX": ...,
+        "axisY": ...,
+        "axisLeft": ...,
+        "axisRight": ...,
+        "axisTop": ...,
+        "axisBottom": ...,
+        "axisBand": ...,
+        ...
+      }
+    }
+  *
+  *
+  */
+  vegaEmbed("#vis", spec);
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.4.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.7.1"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <div style="position: absolute; right:0; top:100px; width: 500px; bottom: 0;">
+    <div style="width: 200px; height: 2px; background-color: #000;"></div>
+  </div>
+</body>
+<script type="text/javascript">
+  var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+    "description": "A simple bar chart with embedded data.",
+    "title": {
+      "text": "测试 mydata01.json，测试 encoding 下的 detail 分组功能",
+      "orient": "top"
+    },
+    "width": "600",
+    "height": "300",
+    "config": {
+      "title": {
+        "color": "blue",
+        "fontSize": 14,
+        "fontWeight": "bold"
+      },
+      "scale": {
+        "rangeStep": 10
+      }
+    },
+    "data": {
+      "url": '../data/mydata01.json'
+    },
+    "mark": {
+      "type": "point"
+    },
+    "encoding": {
+      "x": {"aggregate": "mean", "field": "Horsepower","type": "quantitative"},
+      "y": {"aggregate": "mean", "field": "Displacement","type": "quantitative"},
+      "detail": {"field": "Origin","type": "nominal"}
+    }
+  }
+  /*
+  * 如果没加上 detail 这一条，结果就是只有一个圆点，x 轴 y 轴，分别是 horsepower displacement 的平均值
+  *
+  * 加上 detail 后，我们可以看到 detail 中是按照 Origin 来分组的，也就是这里的 mean horsepower 和 mean displacement，是
+  * 按照分组后的平均值，即结果中如果有 N 个 Origin，那么就有 N 个圆点，并且这个圆点的 x，y 值就是这个本分组下的平均值。
+  */
+  vegaEmbed("#vis", spec);
+</script>
+</html>

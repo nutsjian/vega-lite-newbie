@@ -1,0 +1,9 @@
+[
+    {"year":1850,"age":0,"sex":2,"people":100000},
+    {"year":1850,"age":5,"sex":1,"people":200000},
+    {"year":1850,"age":5,"sex":2,"people":300000},
+    {"year":1850,"age":10,"sex":1,"people":400000},
+    {"year":1850,"age":10,"sex":2,"people":500000},
+    {"year":1850,"age":15,"sex":1,"people":100000},
+    {"year":1850,"age":15,"sex":2,"people":200000}
+]

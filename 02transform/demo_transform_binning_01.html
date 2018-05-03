@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.4.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.7.1"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <div style="position: absolute; right:0; top:100px; width: 500px; bottom: 0;">
+    <div style="width: 200px; height: 2px; background-color: #000;"></div>
+  </div>
+</body>
+<script type="text/javascript">
+  var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+    "description": "A simple bar chart with embedded data.",
+    "title": {
+      "text": "测试 movie.json，直方图",
+      "orient": "top"
+    },
+    "width": "400",
+    "height": "300",
+    "config": {
+      "title": {
+        "color": "blue",
+        "fontSize": 14,
+        "fontWeight": "bold"
+      }
+    },
+    "data": {
+      "url": '../data/movie.json'
+    },
+    "mark": {
+      "type": "bar"
+    },
+    "encoding": {
+      "x": {"bin": {"maxbins": 40}, "field": "IMDB_Rating","type": "quantitative"},
+      "y": {"aggregate": "count", "type": "quantitative"},
+      "tooltip": {"field": "IMDB_Rating", "type": "quantitative"}
+    }
+  }
+
+  /*
+  * binning 创建一个直方图，x 坐标是 美国电影的分级 Rating，y 坐标是该分级下的电影数量
+  * 上面展示的直方图的意思是，0-1 这个电影分级下的电影数量是 xx 部， 1-2 这个电影分级下的电影数量是 yy 部，......
+  *
+  * 另外 encoding 中的 bin 可以配置成一个 object 对象，里面可以有如下参数：
+  * maxbins
+  * base
+  * step
+  * steps
+  * minstep
+  * divide
+  * extent
+  * nice
+  */
+  vegaEmbed("#vis", spec);
+</script>
+</html>

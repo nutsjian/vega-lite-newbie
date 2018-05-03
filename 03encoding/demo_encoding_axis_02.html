@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.4.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.7.1"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <div style="position: absolute; right:0; top:100px; width: 500px; bottom: 0;">
+    <div style="width: 200px; height: 2px; background-color: #000;"></div>
+  </div>
+</body>
+<script type="text/javascript">
+  var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+    "description": "A simple bar chart with embedded data.",
+    "title": {
+      "text": "测试Encoding Axis",
+      "orient": "top"
+    },
+    "width": "400",
+    "height": "300",
+    "config": {
+      "title": {
+        "color": "blue",
+        "fontSize": 14,
+        "fontWeight": "bold"
+      },
+      "axisX": {
+        "labelColor": "red",
+        "grid": false,
+        "titleAlign": "left",
+        "titleX": 0,
+        "titleY": 30,
+        "titleColor": "green",
+        "titleFontSize": 20,
+        "titleFontWeight": "bold"
+      }
+    },
+    "data": {
+      "url": "../data/seattle-temps.csv", "format": {"type": "csv"}
+    },
+    "mark": {
+      "type": "line"
+    },
+    "encoding": {
+      "x": {"timeUnit": "month", "field": "date", "type": "temporal", "axis": {
+        "orient": "bottom"
+      }},
+      "y": {"field": "temp", "aggregate": "mean", "type": "quantitative", "axis": {
+        "orient": "right"
+      }},
+      "tooltip": {"field": "temp", "aggregate": "mean", "type": "quantitative"}
+    }
+  }
+
+  /*
+  * 
+  *
+  * 以上这些属性是在 encoding 中单独配置的，另外还有一些针对 axis 的配置需要在 axis.config 中配置，如下：
+  * 
+    {
+      ...,
+      "config": {
+        "axis": ...,
+        "axisX": ...,
+        "axisY": ...,
+        "axisLeft": ...,
+        "axisRight": ...,
+        "axisTop": ...,
+        "axisBottom": ...,
+        "axisBand": ...,
+        ...
+      }
+    }
+    
+    其中：
+    axis：配置的属性应用于所有的坐标轴上
+
+    axisX、axisY，分别描述encoding中设置的 x y 轴，而 axisRight axisLeft axisTop axisBottom，用于描述特殊场景下的指定
+    位置的坐标轴
+    
+    axisBand
+
+  *
+  *
+  */
+  vegaEmbed("#vis", spec);
+</script>
+</html>
