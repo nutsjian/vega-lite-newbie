@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.4.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.7.1"></script>
+</head>
+<body>
+  <div id="vis"></div>
+</body>
+<script type="text/javascript">
+  var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+    "title": {
+      "text": "Test Mark Area (Stack)",
+      "orient": "top"
+    },
+    "width": "300",
+    "height": "200",
+    "data": {
+      "url": "data/unemployment-across-industries.json", "format": {"type": "json"}
+    },
+    "mark": "area",
+    "encoding": {
+      "x": {
+        "timeUnit": "yearmonth", 
+        "field": "date", 
+        "type": "temporal", 
+        "axis": {"format": "%Y"}
+      },
+      "y": {
+        "aggregate": "sum",
+        "field": "count", 
+        "type": "quantitative"
+      },
+      "color": {
+        "field": "series",
+        "type": "nominal",
+        "scale": {"schema": "category20b"}
+      }
+    },
+    "config": {"axisY": {"minExtent": 30}}
+  }
+
+  /**
+   * stacked area chart（堆积面积图）
+   * 如果想要做一个 stack area 图表，则可以通过添加一个 color 属性来完成。
+   * 这个例子中，我们根据 industry（行业）来划分出 N 个 Area，并用不同的颜色
+   * 画出来。
+   * 
+   * 需要待学习的内容：
+   *  color: {...} 配置
+   *  scale: {...} 配置，以及其中的 schema ?
+   * 
+   */ 
+  vegaEmbed("#vis", spec);
+</script>
+</html>

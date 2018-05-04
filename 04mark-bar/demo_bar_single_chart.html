@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.4.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.7.1"></script>
+</head>
+<body>
+  <div id="vis"></div>
+</body>
+<script type="text/javascript">
+  var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+    "title": {
+      "text": "Test Mark Bar (Single)",
+      "orient": "top"
+    },
+    "data": {
+      "url": "../data/population.json", "format": {"type": "json"}
+    },
+    "mark": {
+      "type": "bar"
+    },
+    "encoding": {
+      "x": {"field": "people", "aggregate": "sum", "type": "quantitative", "axis": {
+        "title": "population"
+      }}
+    }
+  }
+
+  /*
+   * 通过把一个数值型的结果映射到 x 轴 或 y 轴 来实现单条柱状图
+   * 
+   */
+  vegaEmbed("#vis", spec);
+</script>
+</html>

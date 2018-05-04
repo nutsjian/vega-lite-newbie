@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.4.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.7.1"></script>
+</head>
+<body>
+  <div id="vis"></div>
+</body>
+<script type="text/javascript">
+  var spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+    "title": {
+      "text": "Test Mark Bar (Basic Horizontal)",
+      "orient": "top"
+    },
+    "data": {
+      "url": "../data/population.json", "format": {"type": "json"}
+    },
+    "mark": {
+      "type": "bar"
+    },
+    "encoding": {
+      "x": {"field": "people", "aggregate": "sum", "type": "quantitative", "axis": {
+        "title": "population"
+      }},
+      "y": {
+        "field": "age", "type": "ordinal", "scale": {"rangeStep": 20}
+      }
+    }
+  }
+
+  /*
+   * 上面这个例子是按照年龄 age 来分组，并计算每个分组的总人口，并通过横向的 bar 图来展示
+   * 
+   * 其中：{"scale": {"rangeStep": 20}} 是用来调整柱子的宽度的
+   * 
+   */
+  vegaEmbed("#vis", spec);
+</script>
+</html>
